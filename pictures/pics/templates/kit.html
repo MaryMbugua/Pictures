@@ -5,9 +5,15 @@
 
 <style>
 .jik{
-display: inline-block;
-width: 30%;
-    }
+    display: inline-block;
+    width: 50%;
+    padding: 3%;
+        }
+        .btnl{
+    background-color: #ffffff;
+    text-align: centre;
+    border-color: #ffffff;
+}
 
 </style>
 
@@ -21,7 +27,9 @@ width: 30%;
     
     <!--Display images  -->
     <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 jik">
-
+        <button class="btnl" data-clipboard-text="http://127.0.0.1:8000{{pic.image.url}}">
+            Copy photo ur
+        </button>
         <!-- image trigger modal -->
         <img src="{{pic.image.url}}" alt="" srcset="" class="img-responsive" data-toggle="modal" data-target="#myModal-{{pic.id}}">
 
