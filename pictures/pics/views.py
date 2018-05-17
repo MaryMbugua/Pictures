@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse,Http404,HttpResponseRedirect
-
+from .models import Image
 # Create your views here.
 
 def landing(request):
+    pics = Image.all_pics()
   
     
-    return render(request,'index.html')
+    return render(request,'index.html',{"pics": pics})
+    
 def search(request):
   
     

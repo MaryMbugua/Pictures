@@ -15,7 +15,7 @@ class Category(models.Model):
     catname = models.CharField(max_length=40, choices=CATEGORIES) 
         
     def __str__(self):
-        return self.name
+        return self.catname
         
     def save_category(self):
         self.save()    
@@ -37,10 +37,10 @@ LOCATIONS = (
         )
         
 class Location(models.Model):
-locname = models.CharField(max_length=40, choices=LOCATIONS) 
+    locname = models.CharField(max_length=40, choices=LOCATIONS) 
         
     def __str__(self):
-        return self.name
+        return self.locname
         
     def save_location(self):
         self.save()    
@@ -54,7 +54,7 @@ locname = models.CharField(max_length=40, choices=LOCATIONS)
 class Image(models.Model):
     image = models.ImageField(upload_to = 'picha/', null = True, blank = True)
     name = models.CharField(max_length=20)
-    description = models.HTMLField()
+    description = HTMLField()
     category = models.ForeignKey('Category', on_delete = models.CASCADE, null='True', blank=True)
     location = models.ForeignKey('Location', on_delete = models.CASCADE, null='True', blank=True)
         
