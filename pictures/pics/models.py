@@ -2,25 +2,101 @@ from django.db import models
 from tinymce.models import HTMLField
 
 # Create your models here.
-
-class comments(models.Model):
-    content = models.CharField(max_length=60)
-    editor = models.ForeignKey(User)
-class Photo(models.Model):
-    image = models.ImageField(upload_to = 'images/',blank=True)
-    caption = models.CharField(max_length=70,blank=True)
-    person = models.ForeignKey(User)
-   
-
-class Profile(models.Model):
-    person = models.ForeignKey(User)
-    user_name = models.CharField(max_length=60)
-    bio = HTMLField()
-    profile_pic = models.ImageField(upload_to = 'images/',blank=True)
-    @classmethod
-    def search_by_user_name(cls,search_term):
-        profiles = cls.objects.filter(user_name__icontains=search_term)
-        return profiles
-   
+CATEGORIES = (
+            ('beauty', 'beauty'),
+            ('daily', 'daily'),
+            ('art', 'art'),
+            ('food', 'food'),
+            ('culture', 'culture'),
+            ('scenery', 'scenery'),
+        )
+        
+class Category(models.Model):
+    catname = models.CharField(max_length=40, choices=CATEGORIES) 
+        
     def __str__(self):
-        return self.bio
+        return self.name
+        
+    def save_category(self):
+        self.save()    
+        
+    def delete_category(self):
+        Category.objects.filter(id = self.pk).delete()
+            
+    def update_category(self, **kwargs):
+        self.objects.filter(id = self.pk).update(**kwargs)
+
+
+LOCATIONS = (
+            ('nairobi', 'nairobi'),
+            ('naivasha', 'naivasha'),
+            ('watamu', 'watamu'),
+            ('kisumu', 'kisumu'),
+            ('nyeri', 'nyeri'),
+            ('kitale', 'kitale'),
+        )
+        
+class Location(models.Model):
+locname = models.CharField(max_length=40, choices=LOCATIONS) 
+        
+    def __str__(self):
+        return self.name
+        
+    def save_location(self):
+        self.save()    
+        
+    def delete_location(self):
+        Location.objects.filter(id = self.pk).delete()
+           
+    def update_location(self, **kwargs):
+        self.objects.filter(id = self.pk).update(**kwargs)     
+        
+class Image(models.Model):
+    image = models.ImageField(upload_to = 'picha/', null = True, blank = True)
+    name = models.CharField(max_length=20)
+    description = models.HTMLField()
+    category = models.ForeignKey('Category', on_delete = models.CASCADE, null='True', blank=True)
+    location = models.ForeignKey('Location', on_delete = models.CASCADE, null='True', blank=True)
+        
+    def __str__(self):
+        return self.name
+        
+    def save_image(self):
+        self.save()   
+        
+    def delete_image(self):
+        Image.objects.filter(id = self.pk).delete() 
+            
+    def update_image(self, **kwargs):
+        self.objects.filter(id = self.pk).update(**kwargs)       
+        
+    @classmethod
+    def all_pics(cls):
+        pics = cls.objects.all()
+        return pics 
+        
+    @classmethod
+    def pic_locations(cls):
+        pics = cls.objects.order_by('location')
+        return pics 
+        
+    @classmethod
+    def pic_categories(cls):
+        pics = cls.objects.order_by('category')
+        return pics 
+        
+    @classmethod
+    def get_pic(cls, id):
+        pic = cls.objects.get(id=id)
+        return pic
+        
+    @classmethod
+    def search_by_category(cls, search_input):
+        images = cls.objects.filter(category__catname__icontains=search_input)
+        return images        
+        
+        class Meta:
+            ordering = ['catname']
+
+
+
