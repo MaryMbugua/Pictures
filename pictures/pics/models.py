@@ -76,21 +76,6 @@ class Image(models.Model):
         return pics 
         
     @classmethod
-    def pic_locations(cls):
-        pics = cls.objects.order_by('location')
-        return pics 
-        
-    @classmethod
-    def pic_categories(cls):
-        pics = cls.objects.order_by('category')
-        return pics 
-        
-    @classmethod
-    def get_pic(cls, id):
-        pic = cls.objects.get(id=id)
-        return pic
-        
-    @classmethod
     def search_by_category(cls, search_input):
         images = cls.objects.filter(category__catname__icontains=search_input)
         return images        
