@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,9 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'a^l!-lze+x4f=)asz=uy62vgn2_pjrcr$l%*uzpsw)z2+okf@('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -78,14 +79,13 @@ WSGI_APPLICATION = 'pictures.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pictures',
-        'USER': 'nish',
-    'PASSWORD': 'Nish',
-    }
-}
-
+    'default': dj_database_url.
+    default ='postgresql'
+                  }
+#  'NAME': 'pictures',
+#         'USER': 'nish',
+#     'PASSWORD': 'Nish',
+# 'ENGINE': 'django.db.backends.postgresql',
 
 
 # Password validation
