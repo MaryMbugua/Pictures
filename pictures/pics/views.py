@@ -7,6 +7,11 @@ def landing(request):
   
     
     return render(request,'index.html')
+def search(request):
+  
+    
+    return render(request,'search.html')
+
 def places(request):
   
     
@@ -38,4 +43,3 @@ def watamu(request):
   
     
     return render(request,'wat.html')
-    
